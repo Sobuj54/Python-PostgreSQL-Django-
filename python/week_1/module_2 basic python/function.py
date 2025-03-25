@@ -9,3 +9,7 @@ def sum(a,b):
 
 total = sum(10,20)
 print("Total: ",total)
+
+
+def add(x,y):
+    print(x+y)
