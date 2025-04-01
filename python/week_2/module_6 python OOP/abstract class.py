@@ -2,7 +2,7 @@
     Abstract class
 
     1. An abstract class is a class that cannot be instantiated directly. It serves  as a blueprint for other classes and often contains abstract methods that must  be implemented by child classes.
-    
+
     2. Python provides the ABC (Abstract Base Class) module from abc to define abstract classes.
 """
 
@@ -11,11 +11,11 @@ from abc import ABC, abstractmethod
 class Animal(ABC):   # Abstract class
     @abstractmethod
     def eat(self):   # Abstract method (no implementation)
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def move(self):
-        pass
+        raise NotImplementedError
 
     """
        Features of abstract class:

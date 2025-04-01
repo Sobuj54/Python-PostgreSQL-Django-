@@ -19,9 +19,16 @@ class Sports:
         self.game = game
 
 # multiple inheritance
-class Student:
+class Student(Family, School, Sports):
     def __init__(self, address, id, level, game):
         Family.__init__(self,address)
         School.__init__(self,id, level)
         Sports.__init__(self,game)
+
+    def show(self):
+        print(f"{self.address}, {self.id}, {self.level}, {self.game}")
+
+sobuj = Student("dhaka", 22540,"0","football")
+sobuj.show()
+
         
