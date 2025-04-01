@@ -1,14 +1,14 @@
 """
-    Encapsulation: Hide details
+    Encapsulation: It is the concept of hiding data and restricting direct access to it. Instead, data is accessed or modified through methods (functions inside a class).
 
     Access modifiers: Public, Private, Protected
 """
 
 class Bank:
     def __init__(self, name, initial_balance):
-        self.name = name
-        self._pro = False
-        self.__balance = initial_balance
+        self.name = name  # public attribute
+        self._pro = False  # protected attribute
+        self.__balance = initial_balance  # private attribute
         """
             public:
                 name is public attribute.It can be accessed and modified from outside.
