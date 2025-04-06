@@ -44,7 +44,7 @@ class Book(Library):
             print("Invalid book id.")
 
     @classmethod
-    def all_books(cls):
+    def view_book_info(cls):
         for book in Library.book_list:
             print(f"Id:{book._book_id} title:{book._title} author:{book.__author} availability:{book.__availability}")
 
@@ -63,7 +63,7 @@ while(True):
         break
 
     if n == 1:
-        Book.all_books()
+        Book.view_book_info()
     elif n == 2:
         id = int(input("book id: "))
         Book.borrow_book(id)
