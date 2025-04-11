@@ -1,7 +1,7 @@
 from school import School
 
 class Subject:
-    def __init__(self, name, teacher):
+    def __init__(self, name:str, teacher:object):
         self.subject = name
         self.teacher = teacher
         self.max_mark = 100

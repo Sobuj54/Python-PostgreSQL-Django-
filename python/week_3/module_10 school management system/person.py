@@ -9,10 +9,10 @@ class Teacher(Person):
     def __init__(self, name):
         super().__init__(name)
     def evaluate_exam(self):
-        return random.randint(1,100)
+        return random.randint(50,100)
     
 class Student(Person):
-    def __init__(self, name, classroom):
+    def __init__(self, name: str, classroom: object):
         super().__init__(name)
         self.classroom = classroom
         self.__id = None
@@ -24,8 +24,16 @@ class Student(Person):
         total = 0
         for grade in self.subject_grade.values():
             total += School.grade_to_value(grade)
-        gpa = total / len(self.subject_grade)
-        self.grade = School.value_to_grade(gpa)
+
+        if total == 0:
+            gpa = 0
+            self.grade = School.value_to_grade(gpa)
+        else:
+            gpa = total / len(self.subject_grade)
+            self.grade = School.value_to_grade(gpa)
+        
+        return self.grade
+        
 
     @property
     def id(self):
