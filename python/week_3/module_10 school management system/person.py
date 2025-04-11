@@ -20,7 +20,7 @@ class Student(Person):
         self.subject_grade = {}  # { "english" : "A+" }
         self.grade = None # final grade
 
-    def final_grade(self):
+    def calculate_final_grade(self):
         total = 0
         for grade in self.subject_grade.values():
             total += School.grade_to_value(grade)

@@ -3,14 +3,15 @@ class School:
         self.name = name
         self.address = address
         self.teachers = {} # { "bengali" : teacher_object }
-        self.classrooms = {} # { "eight" : teacher_object }
+        self.classrooms = {} # { "eight" : classroom_object }
 
     def add_classroom(self, classroom):
         self.classrooms[classroom.name] = classroom
     def add_teacher(self, subject, teacher):
         self.teachers[subject] = teacher
-    def student_admission(self):
-        pass
+    def student_admission(self, student):
+        class_name = student.classroom.name
+        self.classrooms[class_name].add_student(student)
 
     @staticmethod
     def calculate_grade(marks):
@@ -58,4 +59,31 @@ class School:
             return "D"
         else:
             return "F"
+        
+    def __repr__(self):
+        for key in self.classrooms.keys():
+            print(f"class : {key}")
+
+        # all students in all classrooms
+        for key,val in self.classrooms.items(): 
+            print(f"students of class {key.upper()}")  
+            for student in val.students:
+                print(f"{student.name}, ")
+            print("\n")
+
+        # all subjects in all classrooms
+        for key,val in self.classrooms.items(): 
+            print(f"students of class {key.upper()}")  
+            for sub in val.subjects:
+                print(f"{sub.subject}, ")
+            print("\n")
+
+        # all student results
+        for key,val in self.classrooms.items(): 
+            for student in val.students:
+                    for k,i in student.marks.items():
+                        print(student.name, k, i, student.subject_grade[k])
+                    print(student.calculate_final_grade())
+            print("\n")
+        return ""
         
