@@ -1,0 +1,101 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(202, 197, 197);
+    padding: 10px 20px;
+}
+
+.logo {
+    width: 70px;
+    border-radius: 10%;
+}
+
+.menu-container {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: large;
+}
+
+li:hover {
+    color: aquamarine;
+    cursor: pointer;
+}
+
+.banner-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 50px;
+}
+
+.banner-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.btn {
+    border: none;
+    padding: 15px 20px;
+    font-size: 20px;
+    margin: 15px;
+    color: white;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+.hire-btn {
+    background-color: steelblue;
+}
+
+.project-btn {
+    background-color: rgb(40, 197, 40);
+}
+
+.service-container {
+    margin: 40px;
+}
+
+.service-title {
+    text-align: center;
+    font-size: 50px;
+    margin: 30px;
+}
+
+.services {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    box-shadow: 4px 4px 8px rgb(121, 101, 101);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.service-btn {
+    width: 70px;
+    padding: 10px 15px;
+    margin: auto;
+    border: none;
+    background-color: rgb(55, 167, 55);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer
+}
