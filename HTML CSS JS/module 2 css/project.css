@@ -99,3 +99,15 @@ li:hover {
     border-radius: 5px;
     cursor: pointer
 }
+
+@media only Screen and (min-width: 400px) and (max-width: 767px) {
+    body {
+        background-color: green;
+    }
+}
+
+@media only Screen and (min-width: 768px) and (max-width: 992px) {
+    body {
+        background-color: aqua;
+    }
+}
