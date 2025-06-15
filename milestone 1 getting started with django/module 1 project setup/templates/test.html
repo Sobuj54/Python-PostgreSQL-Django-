@@ -11,5 +11,11 @@
   <body>
     <div class="bg">test page with static</div>
     <img src="{% static 'images/nature.avif'%}" alt="">
+
+    {% for name in names %}
+      {% if name == "sobuj" %}
+      <li>{{name}}</li>
+      {% endif %}
+    {% endfor %}
   </body>
 </html>
