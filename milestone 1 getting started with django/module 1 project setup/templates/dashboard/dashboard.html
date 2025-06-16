@@ -1,4 +1,5 @@
 {% load static %}
+{% comment %} {% load django_browser_reload %} {% endcomment %}
 
 <!DOCTYPE html>
 <html>
@@ -8,12 +9,12 @@
     <title>{% block title %} {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/output.css'%}">
   </head>
-  <body class="max-w-7xl mx-auto bg-gray-200">
-    <header class="flex justify-between my-5 p-5 rounded-lg">
-      <h1 class="font-bold text-2xl text-green-500">{% block heading %} {% endblock heading %}</h1>
-      <div class="flex gap-5 items-center font-bold">
+  <body class="mx-auto bg-gray-200 max-w-7xl">
+    <header class="flex justify-between p-5 my-5 rounded-lg">
+      <h1 class="text-2xl font-bold text-green-500">{% block heading %} {% endblock heading %}</h1>
+      <div class="flex items-center gap-5 font-bold">
         <div
-          class="hover:bg-gray-300 hover:text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer text-lg"
+          class="flex items-center justify-center w-10 h-10 text-lg rounded-full cursor-pointer hover:bg-gray-300 hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -31,24 +32,24 @@
           </svg>
         </div>
         <button
-          class="p-5 rounded-full w-10 h-10 flex items-center justify-center bg-blue-500 text-white cursor-pointer"
+          class="flex items-center justify-center w-10 h-10 p-5 text-white bg-blue-500 rounded-full cursor-pointer"
         >
           B
         </button>
       </div>
     </header>
     <main>
-      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
+      <section class="grid grid-cols-1 gap-5 p-5 md:grid-cols-2 lg:grid-cols-4">
         <!-- card -->
-        <div class="shadow-md shadow-gray-400 p-5 rounded-lg bg-white">
+        <div class="p-5 bg-white rounded-lg shadow-md shadow-gray-400">
           <h1 class="text-2xl font-bold">Total Task</h1>
-          <div class="flex justify-between items-center">
+          <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-semibold">3</h1>
               <p>11 months</p>
             </div>
             <div
-              class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center p-3 text-2xl"
+              class="flex items-center justify-center w-12 h-12 p-3 text-2xl rounded-full bg-green-50"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,15 +69,15 @@
           </div>
         </div>
         <!-- card -->
-        <div class="shadow-md shadow-gray-400 p-5 rounded-lg bg-white">
+        <div class="p-5 bg-white rounded-lg shadow-md shadow-gray-400">
           <h1 class="text-2xl font-bold">Total Task</h1>
-          <div class="flex justify-between items-center">
+          <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-semibold">3</h1>
               <p>11 months</p>
             </div>
             <div
-              class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center p-3 text-2xl"
+              class="flex items-center justify-center w-12 h-12 p-3 text-2xl rounded-full bg-green-50"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -96,15 +97,15 @@
           </div>
         </div>
         <!-- card -->
-        <div class="shadow-md shadow-gray-400 p-5 rounded-lg bg-white">
+        <div class="p-5 bg-white rounded-lg shadow-md shadow-gray-400">
           <h1 class="text-2xl font-bold">Total Task</h1>
-          <div class="flex justify-between items-center">
+          <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-semibold">3</h1>
               <p>11 months</p>
             </div>
             <div
-              class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center p-3 text-2xl"
+              class="flex items-center justify-center w-12 h-12 p-3 text-2xl rounded-full bg-green-50"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,15 +125,15 @@
           </div>
         </div>
         <!-- card -->
-        <div class="shadow-md shadow-gray-400 p-5 rounded-lg bg-white">
+        <div class="p-5 bg-white rounded-lg shadow-md shadow-gray-400">
           <h1 class="text-2xl font-bold">Total Task</h1>
-          <div class="flex justify-between items-center">
+          <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-semibold">3</h1>
               <p>11 months</p>
             </div>
             <div
-              class="h-12 w-12 bg-green-50 rounded-full flex items-center justify-center p-3 text-2xl"
+              class="flex items-center justify-center w-12 h-12 p-3 text-2xl rounded-full bg-green-50"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +158,7 @@
     </main>
     {% include "footer.html"%}
 
-     {% load browser_reload %}
-    {% browser_reload_script %}
+  
+    {% comment %} {% browser_reload_script %} {% endcomment %}
   </body>
 </html>
