@@ -10,14 +10,23 @@ class Employee(models.Model):
         return f"{self.name}"
 
 class Task(models.Model):
+    STATUS_CHOICES = [
+        ("PENDING", "Pending"),
+        ("IN_PROGRESS", "In progress"),
+        ("COMPLETED", "Completed"),
+    ]
     project = models.ForeignKey("Project", on_delete=models.CASCADE, default=1)
     assigned_to = models.ManyToManyField(Employee)
     title = models.CharField(max_length=100)
     description = models.TextField()
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default="PENDING")
     due_date = models.DateField()
     is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title}"
 
 
 class TaskDetail(models.Model):
@@ -27,11 +36,18 @@ class TaskDetail(models.Model):
         ("L", "Low"),
     )
 
-    task = models.OneToOneField(Task, on_delete=models.CASCADE)
+    task = models.OneToOneField(Task, on_delete=models.CASCADE, related_name="details")
     assigned_to = models.CharField(max_length=100)
     priority = models.CharField(max_length=1, choices=PRIORITY_OPTIONS, default="L")
+    notes = models.CharField(blank=True, null=True)
 
+    def __str__(self):
+        return f"Details of task {self.task.title}"
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
     start_date = models.DateField()
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <ul>
+            {% for task in tasks %}
+                <li>{{task.status}}</li>
+            {% endfor %}
+        </ul>
+        <p>first task : {{first_task}}</p>
+        <p>Task by id : {{task_id}}</p>
+    </div>
+
+    <div>
+        <h2>Filtered Tasks</h2>
+         <ul>
+            {% for task in filter_tasks %}
+                <li>{{task.title}} : {{task.status}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        {{due_today}}
+    </div>
+
+      <div>
+        <h2>Non low priority</h2>
+         <ul>
+            {% for task in ex %}
+                <li>{{task.task.title}} : {{task.priority}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>checking icontains</h2>
+         <ul>
+            {% for task in contains %}
+                <li>{{task.title}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>checking AND in query</h2>
+         <ul>
+            {% for task in and %}
+                <li>{{task.title}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>checking OR in query</h2>
+         <ul>
+            {% for task in or %}
+                <li>{{task.title}} : {{task.status}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Task joined with task detail</h2>
+         <ul>
+            {% for task in task_joined %}
+                <li>{{task.title}} : {{task.details.priority}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Task detail joined with task </h2>
+         <ul>
+            {% for task in taskDetail_joined %}
+                <li>{{task.assigned_to}} : {{task.task.title}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Task relation with project forward </h2>
+         <ul>
+            {% for task in task_project %}
+                <li>{{task.title}} : {{task.project.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Project relation with task backward </h2>
+         <ul>
+            {% for project in project_task %}
+                <li><p>{{project.name}}</p> 
+                    <ol>
+                        {% for task in project.task_set.all %}
+                        <li>{{task.title}}</span>
+                        {% endfor %}
+                    </ol>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Task and employee relation </h2>
+         <ul>
+            {% for task in task_employee %}
+                <li><p>{{task.title}}</p> 
+                    <ol>
+                        {% for emp in task.assigned_to.all %}
+                        <li>{{emp.name}}</span>
+                        {% endfor %}
+                    </ol>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Employee and task relation </h2>
+         <ul>
+            {% for emp in employee_task %}
+                <li><p>{{emp.name}}</p> 
+                    <ol>
+                        {% for task in emp.task_set.all %}
+                        <li>{{task.title}}</span>
+                        {% endfor %}
+                    </ol>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
