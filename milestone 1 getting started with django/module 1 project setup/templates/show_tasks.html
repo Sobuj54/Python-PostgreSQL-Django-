@@ -7,6 +7,9 @@
 </head>
 <body>
     <div>
+        <h1>Total tasks: {{task_count.task_num}}</h1>
+    </div>
+    <div>
         <ul>
             {% for task in tasks %}
                 <li>{{task.status}}</li>
@@ -133,6 +136,15 @@
                         {% endfor %}
                     </ol>
                 </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+      <div>
+        <h2>Pojects and their tasks count </h2>
+         <ul>
+            {% for project in projects %}
+                <li>{{project.name}} : {{project.num_task}}</li>
             {% endfor %}
         </ul>
     </div>

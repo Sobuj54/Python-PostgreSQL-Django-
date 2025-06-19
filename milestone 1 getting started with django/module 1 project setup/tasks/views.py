@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse
 from tasks.forms import  TaskModelForm
 from tasks.models import  Task, TaskDetail, Project, Employee
 from datetime import date
-from django.db.models import Q
+from django.db.models import Q,Count
 # Create your views here.
 
 def manager_dashboard(req):
@@ -81,13 +81,19 @@ def view_task(request):
     task_employee = Task.objects.prefetch_related("assigned_to").all() # many to many relation
     employee_task = Employee.objects.prefetch_related("task_set").all() # many to many reverse relation
 
+    """ aggregation """
+    # numbers of tasks
+    task_count = Task.objects.aggregate(task_num=Count("id"))
+    # count the numbers of tasks in each project
+    projects = Project.objects.annotate(num_task=Count("task")).order_by("num_task")
+
 
     CONTEXT = {
         "tasks": tasks, "task_id":task_id, "first_task": first_task, "filter_tasks": filter_tasks, 
         "due_today": due_today, "ex": ex, "contains": contains_value, "and": AND, "or": OR,
         "task_joined": tasks_joined_taskDetail, "taskDetail_joined": taskDetail_joined_tasks,
         "task_project": task_project, "project_task": project_task, "task_employee": task_employee,
-        "employee_task": employee_task
+        "employee_task": employee_task, "task_count": task_count, "projects": projects
     }
 
     return render(request, "show_tasks.html", context=CONTEXT)
