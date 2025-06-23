@@ -5,5 +5,38 @@
 {% block heading %}Manager Dashboard {% endblock heading %}
 
 {% block tasks %}
-<h1>This is manager dashboard.</h1>
+<!-- Task Table  -->
+    <section class="w-full">
+              <table class="w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Title</th>
+                      <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Operation</th>
+                      <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Status</th>
+                      <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Priority</th>
+                      <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Created At</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    {% for task in tasks %}
+                      <tr class="hover:bg-gray-100">
+                      <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap"> {{task.title}}</td>
+                      <td class="px-6 py-4 text-sm whitespace-nowrap">
+                        <a href="{% url 'update-task' task.id %}"> 
+                            <button class="px-3 py-1 text-white bg-red-400 rounded-lg">Edit</button>
+                        </a>
+                        <form action="{% url 'delete-task' task.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="px-3 py-1 text-white bg-red-400 rounded-lg" type="submit">Delete</button>
+                        </form>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{task.status}}</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{task.details.get_priority_display}}</td>
+                      <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{task.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+          
+                </tbody>
+              </table>
+      </section>
 {% endblock tasks %}
