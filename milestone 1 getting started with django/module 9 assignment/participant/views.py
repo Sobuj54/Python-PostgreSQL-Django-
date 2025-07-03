@@ -17,7 +17,7 @@ def participant_create(request):
             return redirect('participant:list')
     else:
         form = ParticipantForm()
-    return render(request, 'participant/create.html', {'form': form})
+    return render(request, 'participant-create.html', {'form': form})
 
 
 # Update an existing participant
@@ -35,7 +35,7 @@ def participant_update(request, pk):
     else:
         form = ParticipantForm(instance=participant)
 
-    return render(request, 'participant/update.html', {'form': form, 'participant': participant})
+    return render(request, 'participant-update.html', {'form': form, 'participant': participant})
 
 
 # Delete a participant
@@ -49,4 +49,4 @@ def participant_delete(request, pk):
         participant.delete()
         return redirect('participant:list')
 
-    return render(request, 'participant/delete.html', {'participant': participant})
+    return render(request, 'participant-delete.html', {'participant': participant})

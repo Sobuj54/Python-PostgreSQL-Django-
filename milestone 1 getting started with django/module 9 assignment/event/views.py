@@ -5,6 +5,7 @@ from event.forms import EventForm
 # List all events
 def event_list(request):
     events = Event.objects.select_related('category').prefetch_related('participants').all()
+    print( "this is events: ",events)
     return render(request, 'event-list.html', {'events': events})
 
 
@@ -17,7 +18,7 @@ def event_create(request):
             return redirect('event:list')
     else:
         form = EventForm()
-    return render(request, 'event/create.html', {'form': form})
+    return render(request, 'event-create.html', {'form': form})
 
 
 # Update an existing event
@@ -35,7 +36,7 @@ def event_update(request, pk):
     else:
         form = EventForm(instance=event)
 
-    return render(request, 'event/update.html', {'form': form, 'event': event})
+    return render(request, 'event-update.html', {'form': form, 'event': event})
 
 
 # Delete an event
@@ -49,4 +50,4 @@ def event_delete(request, pk):
         event.delete()
         return redirect('event:list')
 
-    return render(request, 'event/delete.html', {'event': event})
+    return render(request, 'event-delete.html', {'event': event})

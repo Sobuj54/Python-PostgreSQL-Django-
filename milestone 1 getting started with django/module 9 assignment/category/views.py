@@ -17,7 +17,7 @@ def category_create(request):
             return redirect('category:list')
     else:
         form = CategoryForm()
-    return render(request, 'category/create.html', {'form': form})
+    return render(request, 'category-create.html', {'form': form})
 
 # Update an existing category
 def category_update(request, pk):
@@ -33,7 +33,7 @@ def category_update(request, pk):
             return redirect('category:list')
     else:
         form = CategoryForm(instance=category)
-    return render(request, 'category/update.html', {'form': form, 'category': category})
+    return render(request, 'category-update.html', {'form': form, 'category': category})
 
 # Delete a category
 def category_delete(request, pk):
@@ -45,4 +45,4 @@ def category_delete(request, pk):
     if request.method == 'POST':
         category.delete()
         return redirect('category:list')
-    return render(request, 'category/delete.html', {'category': category})
+    return render(request, 'category-delete.html', {'category': category})
