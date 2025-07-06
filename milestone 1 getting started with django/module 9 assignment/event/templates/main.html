@@ -21,16 +21,5 @@
   <main class="p-6 mx-auto max-w-7xl">
     {% block content %}{% endblock %}
   </main>
-  <script>
-  // Make entire input area trigger native pickers for date/time fields
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('input[type=\"date\"], input[type=\"time\"]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        this.showPicker && this.showPicker();  // triggers native popup in Chromium-based browsers
-      });
-    });
-  });
-</script>
-
 </body>
 </html>

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "event",
     "participant",
     "category",
-    "django_browser_reload"
+    "django_browser_reload",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_browser_reload.middleware.BrowserReloadMiddleware"
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'

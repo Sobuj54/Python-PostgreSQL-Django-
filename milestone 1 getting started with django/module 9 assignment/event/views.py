@@ -4,8 +4,11 @@ from event.forms import EventForm
 
 # List all events
 def event_list(request):
-    events = Event.objects.select_related('category').prefetch_related('participants').all()
-    print( "this is events: ",events)
+    query = request.GET.get('q','')
+    if query:
+        events = Event.objects.select_related('category').prefetch_related('participants').filter(name__icontains=query)
+    else:
+        events = Event.objects.select_related('category').prefetch_related('participants').all()
     return render(request, 'event-list.html', {'events': events})
 
 
