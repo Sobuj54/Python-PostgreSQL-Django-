@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "event",
     "participant",
     "category",
+    "Admin",
     "django_browser_reload",
     "debug_toolbar",
 ]

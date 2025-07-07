@@ -24,4 +24,5 @@ urlpatterns = [
     path("event/", include("event.urls")),
     path("participant/", include("participant.urls")),
     path("category/", include("category.urls")),
+    path("Admin/", include("Admin.urls"))
 ]+ debug_toolbar_urls()
