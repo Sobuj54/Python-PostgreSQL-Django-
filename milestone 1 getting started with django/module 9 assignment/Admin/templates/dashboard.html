@@ -5,28 +5,34 @@
 
  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
   <!-- Total Events -->
-  <div class="p-6 bg-white rounded shadow">
+ <a href="{% url "Admin:home" %}?q=all" class="hover:shadow-green-400 hover:shadow-lg">
+   <div class="p-6 bg-white rounded shadow ">
     <h2 class="text-xl font-semibold">Total Events</h2>
      <p class="text-4xl font-bold text-blue-600">{{ total_events }}</p> 
   </div>
+ </a>
 
   <!-- Total Categories -->
-  <div class="p-6 bg-white rounded shadow">
-    <h2 class="text-xl font-semibold">Total Categories</h2>
-    <p class="text-4xl font-bold text-green-600">{{ total_categories }}</p> 
+  <a href="{% url "Admin:home" %}?q=past" class="hover:shadow-green-400 hover:shadow-lg">
+    <div class="p-6 bg-white rounded shadow">
+    <h2 class="text-xl font-semibold">Past Events</h2>
+    <p class="text-4xl font-bold text-blue-600">{{ past_events_count }}</p> 
   </div>
+  </a>
 
   <!-- Total Participants -->
   <div class="p-6 bg-white rounded shadow">
-    <h2 class="text-xl font-semibold">Total Unique Participants</h2>
-    <p class="text-4xl font-bold text-green-600">{{ total_participants }}</p> 
+    <h2 class="text-xl font-semibold">Total Participants</h2>
+    <p class="text-4xl font-bold text-blue-600">{{ total_participants }}</p> 
   </div>
 
   <!-- Total Participants -->
-  <div class="p-6 bg-white rounded shadow">
+ <a href="{% url "Admin:home" %}?q=upcoming" class="hover:shadow-green-400 hover:shadow-lg">
+   <div class="p-6 bg-white rounded shadow">
     <h2 class="text-xl font-semibold">Total Upcoming Events</h2>
-    <p class="text-4xl font-bold text-green-600">{{ upcoming_events_count }}</p> 
+    <p class="text-4xl font-bold text-blue-600">{{ upcoming_events_count }}</p> 
   </div>
+ </a>
 </div>
 
 <!-- Recent Events Table -->

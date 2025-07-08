@@ -1,6 +1,6 @@
 {% extends "dashboard.html" %}
 {% block events %}
-    <h2 class="mb-4 text-2xl font-bold">Recent Events</h2>
+    <h2 class="mb-4 text-2xl font-bold">{{type}} Events</h2>
   <div class="overflow-x-auto">
     <table class="min-w-full bg-white border rounded shadow">
       <thead class="bg-gray-100">
@@ -8,7 +8,7 @@
           <th class="px-4 py-2 text-left">Name</th>
           <th class="px-4 py-2 text-left">Category</th>
           <th class="px-4 py-2 text-left">Date</th>
-          <th class="px-4 py-2 text-left">Participants</th>
+          <th class="px-4 py-2 text-left">No. of Participants</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +18,7 @@
             <td class="px-4 py-2">{{ event.name }}</td>
             <td class="px-4 py-2">{{ event.category.name }}</td>
             <td class="px-4 py-2">{{ event.date }}</td>
-            <td class="px-4 py-2">{{ event.participant_count }}</td>
+            <td class="px-4 py-2">{{ event.participants.count }}</td>
             </tr>
         {% endfor %}
         {% else %}
