@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 import re
 from django.utils.translation import gettext_lazy as _
+from tasks.forms import StyledFormMixin
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -12,7 +13,7 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
-class CustomRegistrationForm(forms.ModelForm):
+class CustomRegistrationForm(StyledFormMixin,forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
 

@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">  <!-- your Tailwind output CSS -->
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">  <!-- your Tailwind output CSS -->
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+<body class="w-full bg-gray-100 ">
+    <div class="w-1/2 mx-auto bg-white border-2 rounded-lg shadow-md">
         <h2 class="mb-6 text-2xl font-bold text-center">Create an Account</h2>
 
         {% if messages %}
@@ -40,7 +40,7 @@
 
         <p class="mt-6 text-sm text-center text-gray-600">
             Already have an account?
-            {% comment %} <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login</a> {% endcomment %}
+            <a href="{% url 'users:login' %}" class="text-blue-600 hover:underline">Login</a> 
         </p>
     </div>
 </body>
