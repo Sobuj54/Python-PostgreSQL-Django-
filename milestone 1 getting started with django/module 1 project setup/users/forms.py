@@ -4,7 +4,9 @@ from django import forms
 import re
 from django.utils.translation import gettext_lazy as _
 from tasks.forms import StyledFormMixin
+from django.contrib.auth.forms import AuthenticationForm
 
+# this is noob way
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -12,7 +14,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2"]
 
-
+# pro way
 class CustomRegistrationForm(StyledFormMixin,forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
@@ -46,10 +48,16 @@ class CustomRegistrationForm(StyledFormMixin,forms.ModelForm):
         if password and confirm_password and password != confirm_password:
             self.add_error("confirm_password", _("Passwords do not match."))
 
-
+    # must for password hashing in django
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data.get("password"))
         if commit:
             user.save()
         return user
+    
+
+class LoginForm(StyledFormMixin, AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
