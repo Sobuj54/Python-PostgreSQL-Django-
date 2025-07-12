@@ -1,0 +1,60 @@
+<div class="container p-6 mx-auto">
+  <div class="overflow-x-auto">
+    <table class="min-w-full overflow-hidden bg-white rounded-lg shadow-md">
+      <thead class="bg-gray-100">
+        <tr>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            Number
+          </th>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            Username
+          </th>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            Email
+          </th>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            User ID
+          </th>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            Current Role
+          </th>
+          <th
+            class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <!-- Example static data -->
+        {% for user in users %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-4 whitespace-nowrap">{{forloop.counter}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{user.username}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{user.email}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{user.id}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{user.groups.first.name|default:"No groups assigned"}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">
+            <a
+              href="{% url 'users:assign-role' user.id %}"
+              class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600"
+            >
+              Change Role
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

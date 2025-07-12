@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
-from users.forms import CustomRegistrationForm, LoginForm
+from users.forms import CustomRegistrationForm, LoginForm, AssignRoleForm, CreateGroupForm
 from django.contrib import messages
 from django.contrib.auth import login,logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 # Create your views here.
 
@@ -47,3 +47,39 @@ def active_user(request, user_id, token):
             return HttpResponse("Invalid id or token.")
     except User.DoesNotExist:
         return HttpResponse("User does not exist.")
+    
+def admin_dashboard(request):
+    users = User.objects.all()
+    return render(request, "admin/dashboard.html", {"users": users})
+
+def assign_role(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = AssignRoleForm()
+
+    if request.method == "POST":
+        form = AssignRoleForm(request.POST)
+        if form.is_valid():
+            role = form.cleaned_data.get("role")
+            user.groups.clear() # removes previous role
+            user.groups.add(role)
+            messages.success(request, f"{user.username} has been assigned to {role.name} role")
+            return redirect("users:admin-dashboard")
+        
+    return render(request, "admin/assign-role.html", {"form": form})
+
+def create_group(request):
+    form = CreateGroupForm()
+
+    if request.method == 'POST':
+        form = CreateGroupForm(request.POST)
+        if form.is_valid():
+            group = form.save()
+            messages.success(request, f"Group {group.name} has been created successfully.")
+            return redirect("users:create-group")
+        
+    return render(request, "admin/create-group.html", {"form":form})
+
+
+def group_list(request):
+    groups = Group.objects.all()
+    return render(request, "admin/group-list.html", {"groups": groups})
