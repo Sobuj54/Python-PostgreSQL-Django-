@@ -4,6 +4,12 @@ from django.contrib import messages
 from django.contrib.auth import login,logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+# Test for users
+def is_admin(user):
+    return user.groups.filter(name="Admin").exists()
+
 # Create your views here.
 
 def sign_up(request):
@@ -32,6 +38,7 @@ def sign_in(request):
         
     return render(request, "registration/login.html", {"form": form})
 
+@login_required
 def user_logout(request):
     logout(request)
     return redirect("users:login")
@@ -48,10 +55,24 @@ def active_user(request, user_id, token):
     except User.DoesNotExist:
         return HttpResponse("User does not exist.")
     
+
+@user_passes_test(is_admin, login_url="no-permission")
 def admin_dashboard(request):
-    users = User.objects.all()
+    # unoptimized approach
+    # users = User.objects.all()
+
+    # optimized approach
+    users = User.objects.prefetch_related("groups").all()
+
+    for user in users:
+        if user.groups.exists():
+            user.group_name = user.groups.first().name
+        else:
+            user.group_name = "No group assigned."
     return render(request, "admin/dashboard.html", {"users": users})
 
+
+@user_passes_test(is_admin, login_url="no-permission")
 def assign_role(request, user_id):
     user = User.objects.get(id=user_id)
     form = AssignRoleForm()
@@ -67,6 +88,8 @@ def assign_role(request, user_id):
         
     return render(request, "admin/assign-role.html", {"form": form})
 
+
+@user_passes_test(is_admin, login_url="no-permission")
 def create_group(request):
     form = CreateGroupForm()
 
@@ -80,6 +103,7 @@ def create_group(request):
     return render(request, "admin/create-group.html", {"form":form})
 
 
+@user_passes_test(is_admin, login_url="no-permission")
 def group_list(request):
     groups = Group.objects.all()
     return render(request, "admin/group-list.html", {"groups": groups})

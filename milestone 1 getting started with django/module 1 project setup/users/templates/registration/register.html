@@ -7,8 +7,8 @@
     <title>Register</title>
     <link href="{% static 'css/output.css' %}" rel="stylesheet">  <!-- your Tailwind output CSS -->
 </head>
-<body class="w-full bg-gray-100 ">
-    <div class="w-1/2 mx-auto bg-white border-2 rounded-lg shadow-md">
+<body class="w-full p-10 bg-gray-100">
+    <div class="w-1/2 p-5 mx-auto bg-white border-2 rounded-lg shadow-md">
         <h2 class="mb-6 text-2xl font-bold text-center">Create an Account</h2>
 
         {% if messages %}
@@ -19,7 +19,7 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST" class="space-y-4">
+        <form method="POST" class="p-5 space-y-4">
         {% csrf_token %}
             {% for field in form %}
                  <div>
@@ -33,12 +33,12 @@
                 </div>  
             {% endfor %}
 
-            <button type="submit" class="w-full px-4 py-2 transition bg-blue-600 rounded hover:bg-blue-700my05">
+            <button type="submit" class="w-full px-4 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-700my05">
                 Register
             </button>
         </form>
 
-        <p class="mt-6 text-sm text-center text-gray-600">
+        <p class="mt-2 text-sm text-center text-gray-600">
             Already have an account?
             <a href="{% url 'users:login' %}" class="text-blue-600 hover:underline">Login</a> 
         </p>
