@@ -1,44 +1,5 @@
-{% load static %}
-{% comment %} {% load django_browser_reload %} {% endcomment %}
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} {% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'css/output.css'%}">
-  </head>
-  <body class="mx-auto bg-gray-200 max-w-7xl">
-    <header class="flex justify-between p-5 my-5 rounded-lg">
-      <h1 class="text-2xl font-bold text-green-500">{% block heading %} {% endblock heading %}</h1>
-      <div class="flex items-center gap-5 font-bold">
-        <div
-          class="flex items-center justify-center w-10 h-10 text-lg rounded-full cursor-pointer hover:bg-gray-300 hover:text-white"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-            />
-          </svg>
-        </div>
-        <button
-          class="flex items-center justify-center w-10 h-10 p-5 text-white bg-blue-500 rounded-full cursor-pointer"
-        >
-          B
-        </button>
-      </div>
-    </header>
-    <main>
+{% extends 'base.html' %}
+{% block content %}
       <section class="grid grid-cols-1 gap-5 p-5 md:grid-cols-2 lg:grid-cols-4">
         <!-- Total task -->
         <a href="{% url 'manager-dashboard' %}">
@@ -168,10 +129,5 @@
 
       {% block tasks %}
       {% endblock tasks %}
-    </main>
-    {% include "footer.html"%}
 
-  
-    {% comment %} {% browser_reload_script %} {% endcomment %}
-  </body>
-</html>
+{% endblock content %}

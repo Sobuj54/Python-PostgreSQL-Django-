@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
 from core.views import home, no_permission
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +29,7 @@ urlpatterns = [
     path("no-permission/",no_permission, name="no-permission"),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + debug_toolbar_urls()
+
+
+# This is a must for serving media files like image
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )

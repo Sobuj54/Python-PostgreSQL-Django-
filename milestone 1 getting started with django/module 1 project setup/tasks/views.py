@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from tasks.forms import  TaskModelForm, TaskDetailModelForm
-from tasks.models import  Task, TaskDetail, Project, Employee
+from tasks.models import  Task, TaskDetail, Project
 from datetime import date
 from django.db.models import Q,Count
 from django.contrib import messages
@@ -64,7 +64,7 @@ def create_task(request):
 
     if request.method =="POST":
         task_form = TaskModelForm(request.POST)
-        task_Detail_form = TaskDetailModelForm(request.POST)
+        task_Detail_form = TaskDetailModelForm(request.POST, request.FILES)
         if task_form.is_valid() and task_Detail_form.is_valid():
              """ This code is for django model form """
              task = task_form.save()
@@ -170,7 +170,7 @@ def view_task(request):
     """ for many to many or foreign key relation """
     project_task = Project.objects.prefetch_related("task_set").all() # foreign key
     task_employee = Task.objects.prefetch_related("assigned_to").all() # many to many relation
-    employee_task = Employee.objects.prefetch_related("task_set").all() # many to many reverse relation
+    # employee_task = Employee.objects.prefetch_related("task_set").all() # many to many reverse relation
 
     """ aggregation """
     # numbers of tasks
@@ -184,7 +184,14 @@ def view_task(request):
         "due_today": due_today, "ex": ex, "contains": contains_value, "and": AND, "or": OR,
         "task_joined": tasks_joined_taskDetail, "taskDetail_joined": taskDetail_joined_tasks,
         "task_project": task_project, "project_task": project_task, "task_employee": task_employee,
-        "employee_task": employee_task, "task_count": task_count, "projects": projects
+         "task_count": task_count, "projects": projects
     }
 
     return render(request, "show_tasks.html", context=CONTEXT)
+
+
+@login_required
+@permission_required("tasks.view_task", login_url="no-permission")
+def task_details(request, task_id):
+    task = Task.objects.get(id=task_id)
+    return render(request, "task-details.html", {"task": task})

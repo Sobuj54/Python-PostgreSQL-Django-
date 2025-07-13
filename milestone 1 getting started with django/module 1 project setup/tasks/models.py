@@ -1,13 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
-
-class Employee(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-
-    def __str__(self):
-        return f"{self.name}"
 
 class Task(models.Model):
     STATUS_CHOICES = [
@@ -16,12 +10,12 @@ class Task(models.Model):
         ("COMPLETED", "Completed"),
     ]
     project = models.ForeignKey("Project", on_delete=models.CASCADE, default=1)
-    assigned_to = models.ManyToManyField(Employee, related_name="tasks")
+    # assigned_to = models.ManyToManyField(Employee, related_name="tasks")
+    assigned_to = models.ManyToManyField(User, related_name="tasks")
     title = models.CharField(max_length=100)
     description = models.TextField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default="PENDING")
     due_date = models.DateField()
-    is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,6 +31,7 @@ class TaskDetail(models.Model):
     )
 
     task = models.OneToOneField(Task, on_delete=models.CASCADE, related_name="details")
+    asset = models.ImageField(upload_to="tasks_asset", blank=True, null=True)
     priority = models.CharField(max_length=1, choices=PRIORITY_OPTIONS, default="L")
     notes = models.CharField(blank=True, null=True)
 

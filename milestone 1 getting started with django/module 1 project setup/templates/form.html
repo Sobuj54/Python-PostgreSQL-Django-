@@ -17,7 +17,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-        <form method="POST" class="w-full">
+        <form method="POST" class="w-full" enctype="multipart/form-data">
             {% csrf_token %}
 
             {{task_form}}

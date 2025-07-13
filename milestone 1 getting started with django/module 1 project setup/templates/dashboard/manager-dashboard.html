@@ -6,7 +6,7 @@
 
 {% block tasks %}
 <!-- Task Table  -->
-    <section class="w-full">
+    <section class="w-full my-10">
               <table class="w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50">
                     <tr>
@@ -20,8 +20,10 @@
                   <tbody class="bg-white divide-y divide-gray-200">
                     {% for task in tasks %}
                       <tr class="hover:bg-gray-100">
-                      <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap"> {{task.title}}</td>
-                      <td class="px-6 py-4 text-sm whitespace-nowrap">
+                      <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap"> 
+                          <a href="{% url 'task-details' task.id %}">{{task.title}}</a>
+                      </td>
+                      <td class="flex gap-3 py-4 text-sm px- whitespace-nowrap">
                         <a href="{% url 'update-task' task.id %}"> 
                             <button class="px-3 py-1 text-white bg-red-400 rounded-lg">Edit</button>
                         </a>

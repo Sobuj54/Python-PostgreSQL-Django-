@@ -1,15 +1,7 @@
-{% load static %}
-{% load widget_tweaks %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="{% static 'css/output.css' %}" rel="stylesheet">
-</head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+{% extends "base.html" %}
     
-    <div class="w-1/2 p-10 mx-auto bg-white rounded-lg shadow-md max-w-m d">
+{% block content %}
+<div class="w-1/2 max-w-md p-5 mx-auto my-10 bg-white rounded-lg shadow-md">
         <h2 class="mb-6 text-2xl font-bold text-center text-gray-800">Login to Your Account</h2>
         {% if messages %}
             {% for message in messages %}
@@ -37,6 +29,4 @@
             </p>
         </form>
     </div>
-
-</body>
-</html>
+{% endblock content %}

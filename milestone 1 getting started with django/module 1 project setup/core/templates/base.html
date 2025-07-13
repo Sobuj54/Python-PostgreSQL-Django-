@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}TaskMaster - Efficient Task Management{% endblock title%}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  </head>
+  <body class="font-sans bg-gray-100">
+    {% if request.user.is_authenticated %}
+       {% include "logged-nav.html" %}
+    {% else %}
+      {% include "non-logged-nav.html" %}
+    {% endif %}
+
+    <main class="container mx-auto">
+     {% block content%}
+     {% endblock content%}
+    </main>
+
+    <footer class="py-12 text-white bg-gray-800">
+      <div class="container px-6 mx-auto">
+        <div class="flex flex-wrap justify-between">
+          <div class="w-full mb-8 md:w-1/4 md:mb-0">
+            <h3 class="mb-4 text-lg font-semibold">TaskMaster</h3>
+            <p class="text-gray-400">
+              Empowering teams with efficient task management solutions.
+            </p>
+          </div>
+          <div class="w-full mb-8 md:w-1/4 md:mb-0">
+            <h4 class="mb-4 text-lg font-semibold">Quick Links</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-white">Home</a></li>
+              <li><a href="#" class="hover:text-white">Features</a></li>
+              <li><a href="#" class="hover:text-white">Pricing</a></li>
+              <li><a href="#" class="hover:text-white">Contact</a></li>
+            </ul>
+          </div>
+          <div class="w-full mb-8 md:w-1/4 md:mb-0">
+            <h4 class="mb-4 text-lg font-semibold">Connect</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-white">Twitter</a></li>
+              <li><a href="#" class="hover:text-white">LinkedIn</a></li>
+              <li><a href="#" class="hover:text-white">Facebook</a></li>
+            </ul>
+          </div>
+          <div class="w-full md:w-1/4">
+            <h4 class="mb-4 text-lg font-semibold">Newsletter</h4>
+            <form class="flex">
+              <input
+                type="email"
+                placeholder="Your email"
+                class="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded-l-md focus:outline-none"
+                required
+              />
+              <button
+                type="submit"
+                class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-r-md hover:bg-blue-600"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          class="pt-8 mt-12 text-sm text-center text-gray-400 border-t border-gray-700"
+        >
+          &copy; 2023 TaskMaster. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+     <script>
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+
+      document
+        .getElementById("user-menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("user-menu").classList.toggle("hidden");
+        });
+
+      // Close the dropdown when clicking outside
+      window.addEventListener("click", function (e) {
+        if (!document.getElementById("user-menu-button").contains(e.target)) {
+          document.getElementById("user-menu").classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

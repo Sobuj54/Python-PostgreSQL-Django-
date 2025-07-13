@@ -1,20 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-  <h1>
-      Home
-    {% if user.is_authenticated %}
-        {{user}}
-        <a href="{% url 'users:logout' %}">Logout</a>
-    {% else %}
-        Anonymous
-    {% endif %}
+ {% extends "base.html" %}
+ 
+{% block content %}
+ <!-- Hero Section -->
+      <section class="py-32 text-white bg-blue-600 md:py-40">
+        <div class="container px-6 mx-auto text-center">
+          <h1 class="mb-6 text-4xl font-bold md:text-5xl">
+            Streamline Your Workflow with TaskMaster
+          </h1>
+          <p class="mb-12 text-xl">
+            Empower your team with our intuitive task management solution
+          </p>
+          <a
+            href="#"
+            class="px-8 py-4 text-lg font-semibold text-blue-600 transition duration-300 bg-white rounded-md hover:bg-gray-100"
+            >Get Started</a
+          >
+        </div>
+      </section>
 
-  </h1>
-</body>
-</html>
+      <!-- Features Section -->
+      <section class="py-24 md:py-32">
+        <div class="container px-6 mx-auto">
+          <h2 class="mb-16 text-3xl font-bold text-center">
+            Tailored for Every Role
+          </h2>
+          <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+            <!-- Admin Card -->
+            <div class="p-8 bg-white rounded-lg shadow-md">
+              <h3 class="mb-6 text-2xl font-semibold">Admin</h3>
+              <ul class="space-y-3 text-gray-600 list-disc list-inside">
+                <li>Manage user roles and permissions</li>
+                <li>Generate comprehensive reports</li>
+                <li>Configure system-wide settings</li>
+                <li>Monitor team performance</li>
+              </ul>
+            </div>
+            <!-- Manager Card -->
+            <div class="p-8 bg-white rounded-lg shadow-md">
+              <h3 class="mb-6 text-2xl font-semibold">Manager</h3>
+              <ul class="space-y-3 text-gray-600 list-disc list-inside">
+                <li>Create and assign tasks to employees</li>
+                <li>Track project progress in real-time</li>
+                <li>Set deadlines and priorities</li>
+                <li>Generate team performance reports</li>
+              </ul>
+            </div>
+            <!-- Employee Card -->
+            <div class="p-8 bg-white rounded-lg shadow-md">
+              <h3 class="mb-6 text-2xl font-semibold">Employee</h3>
+              <ul class="space-y-3 text-gray-600 list-disc list-inside">
+                <li>View and manage assigned tasks</li>
+                <li>Collaborate with team members</li>
+                <li>Update task status and progress</li>
+                <li>Track personal productivity</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="py-24 bg-gray-200 md:py-32">
+        <div class="container px-6 mx-auto text-center">
+          <h2 class="mb-6 text-3xl font-bold">
+            Ready to Boost Your Team's Productivity?
+          </h2>
+          <p class="mb-12 text-xl">
+            Join thousands of organizations already using TaskMaster
+          </p>
+          <a
+            href="#"
+            class="px-8 py-4 text-lg font-semibold text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600"
+            >Start Free Trial</a
+          >
+        </div>
+      </section>
+{% endblock content %}
