@@ -6,6 +6,8 @@ from django.db.models import Q,Count
 from django.contrib import messages
 from django.contrib.auth.decorators import  user_passes_test, login_required, permission_required
 from users.views import is_admin
+from django.views import View
+from django.utils.decorators import method_decorator
 
 # Test for user
 def is_manager(user):
@@ -90,6 +92,33 @@ def create_task(request):
 
     context = {"task_form": task_form, "task_detail_form": task_Detail_form}
     return render(request, "form.html", context)
+
+# class based view for create task
+@method_decorator(login_required, name="dispatch")
+@method_decorator(permission_required("tasks.add_task", login_url="no-permission"), name="dispatch")
+class CreateTask(View):
+    def get(self, request, *args, **kwargs):
+        task_form = TaskModelForm()
+        task_Detail_form = TaskDetailModelForm()
+        context = {"task_form": task_form, "task_detail_form": task_Detail_form}
+        return render(request, "form.html", context)
+
+    def post(self, request, *args, **kwargs):
+        task_form = TaskModelForm(request.POST)
+        task_Detail_form = TaskDetailModelForm(request.POST, request.FILES)
+
+        if task_form.is_valid() and task_Detail_form.is_valid():
+             """ This code is for django model form """
+             task = task_form.save()
+             task_detail = task_Detail_form.save(commit=False)
+
+             task_detail.task = task
+             task_detail.save()
+
+             messages.success(request, "Task created successfully.")
+             return render(request, "form.html", {"task_form": task_form, "task_detail_form": task_Detail_form})
+
+
 
 @login_required
 @permission_required("tasks.change_task", login_url="no-permission")
