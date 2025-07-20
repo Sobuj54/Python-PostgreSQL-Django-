@@ -5,6 +5,8 @@ from django.contrib.auth import login,logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView
 
 # Test for users
 def is_admin(user):
@@ -37,6 +39,11 @@ def sign_in(request):
             return redirect("home")
         
     return render(request, "registration/login.html", {"form": form})
+
+
+class CustomLoginView(LoginView):
+    form_class = LoginForm
+
 
 @login_required
 def user_logout(request):
@@ -107,3 +114,18 @@ def create_group(request):
 def group_list(request):
     groups = Group.objects.all()
     return render(request, "admin/group-list.html", {"groups": groups})
+
+
+class ProfileView(TemplateView):
+    template_name = "accounts/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user =  self.request.user
+
+        context['username'] = user.username
+        context["email"] = user.email
+        context["name"] = user.get_full_name()
+        context["member_since"] = user.date_joined
+        context["last_login"] = user.last_login
+        return context
