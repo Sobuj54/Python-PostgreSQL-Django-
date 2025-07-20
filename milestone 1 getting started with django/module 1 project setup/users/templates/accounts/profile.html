@@ -1,14 +1,11 @@
-{% load static %}
+
+{% extends 'base.html' %}
 {% load custom_filters %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <title>User Profile</title>
-  </head>
-  <body class="bg-gray-100">
+
+{% block title %}Profile{% endblock  %}
+
+{% block content %}
+  <div class="bg-gray-100">
     <div class="flex min-h-screen">
       <!-- Sidebar -->
       <aside class="w-64 bg-white shadow-md">
@@ -24,7 +21,7 @@
           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
             >Edit Profile</a
           >
-          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+          <a href="{% url 'users:password-change' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200"
             >Change Password</a
           >
         </nav>
@@ -86,5 +83,6 @@
         </div>
       </main>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock  %}
+

@@ -169,6 +169,7 @@ DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 
 LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "/tasks/dashboard/"
+LOGOUT_REDIRECT_URL = "/"
 
 
 FRONTEND_URL = "http://127.0.0.1:8000"

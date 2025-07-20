@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
-from users.forms import CustomRegistrationForm, LoginForm, AssignRoleForm, CreateGroupForm
+from users.forms import CustomRegistrationForm, LoginForm, AssignRoleForm, CreateGroupForm,CustomPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import login,logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.views.generic import TemplateView
+from django.urls import reverse_lazy
 
 # Test for users
 def is_admin(user):
@@ -43,6 +44,12 @@ def sign_in(request):
 
 class CustomLoginView(LoginView):
     form_class = LoginForm
+
+
+class ChangePassword(PasswordChangeView):
+    template_name = "accounts/password-change.html"
+    success_url = reverse_lazy("users:password_change_done")
+    form_class = CustomPasswordChangeForm
 
 
 @login_required

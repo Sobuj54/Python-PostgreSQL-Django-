@@ -4,7 +4,7 @@ from django import forms
 import re
 from django.utils.translation import gettext_lazy as _
 from tasks.forms import StyledFormMixin
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
 # this is noob way
 class RegisterForm(UserCreationForm):
@@ -82,3 +82,5 @@ class CreateGroupForm(StyledFormMixin, forms.ModelForm):
         model = Group
         fields = ["name", "permissions"]
 
+class CustomPasswordChangeForm(StyledFormMixin, PasswordChangeForm):
+    pass
