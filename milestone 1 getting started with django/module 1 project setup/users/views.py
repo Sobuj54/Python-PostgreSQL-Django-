@@ -2,20 +2,22 @@ from django.shortcuts import render, redirect, HttpResponse
 from users.forms import CustomRegistrationForm, LoginForm, AssignRoleForm, CreateGroupForm,CustomPasswordChangeForm, CustomPasswordResetForm, CustomPasswordResetConfirmForm, EditProfileForm
 from django.contrib import messages
 from django.contrib.auth import login,logout
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import  Group
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.views.generic import TemplateView, UpdateView
 from django.urls import reverse_lazy
-from users.models import UserProfile
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Test for users
 def is_admin(user):
     return user.groups.filter(name="Admin").exists()
 
 # Create your views here.
-
+"""
 class EditProfileView(UpdateView):
     model = User
     form_class = EditProfileForm
@@ -39,7 +41,19 @@ class EditProfileView(UpdateView):
     def form_valid(self, form):
         form.save(commit=True)
         return redirect("users:profile")
+"""
+class EditProfileView(UpdateView):
+    model = User
+    form_class = EditProfileForm
+    template_name = "accounts/update-profile.html"
+    context_object_name = "form"
 
+    def get_object(self):
+        return self.request.user 
+    
+    def form_valid(self, form):
+        form.save()
+        return redirect("users:profile")
 
 def sign_up(request):
     if request.method == "POST":
@@ -159,8 +173,8 @@ class ProfileView(TemplateView):
         context['username'] = user.username
         context["email"] = user.email
         context["name"] = user.get_full_name()
-        context["bio"] = user.userprofile.bio
-        context["profile_image"] = user.userprofile.profile_image
+        context["bio"] = user.bio
+        context["profile_image"] = user.profile_image
         context["member_since"] = user.date_joined
         context["last_login"] = user.last_login
         return context

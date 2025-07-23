@@ -1,11 +1,14 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import Group, Permission
 from django import forms
 import re
 from django.utils.translation import gettext_lazy as _
 from tasks.forms import StyledFormMixin
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
+from users.models import CustomUser
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 # this is noob way
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -91,6 +94,7 @@ class CustomPasswordResetForm(StyledFormMixin, PasswordResetForm):
 class CustomPasswordResetConfirmForm(StyledFormMixin, SetPasswordForm):
     pass
 
+"""
 class EditProfileForm(StyledFormMixin,forms.ModelForm):
     class Meta:
         model = User
@@ -120,3 +124,9 @@ class EditProfileForm(StyledFormMixin,forms.ModelForm):
             user.save()
         
         return user
+"""
+
+class EditProfileForm(StyledFormMixin, forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["email", "first_name", "last_name", "bio", "profile_image"]
