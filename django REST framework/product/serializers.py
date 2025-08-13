@@ -2,14 +2,9 @@ from rest_framework import serializers
 from .models import Product, Category
 from decimal import Decimal
 
-class CategoryListSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     total_products = serializers.IntegerField(read_only=True)
 
-    class Meta:
-        model = Category
-        fields = '__all__'
-
-class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
