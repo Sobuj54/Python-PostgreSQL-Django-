@@ -6,8 +6,30 @@ from .serializers import ProductSerializer , CategorySerializer
 from rest_framework import status
 from django.db.models import Count
 from rest_framework.views import APIView
+from rest_framework.mixins import CreateModelMixin, ListModelMixin
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
+
+# doing the CRUD operation using ModelViewSet
+class ProductViewSet(ModelViewSet):
+     queryset = Product.objects.all()
+     serializer_class = ProductSerializer
+
+     def destroy(self, request, *args, **kwargs):
+          product = self.get_object()
+          if product.stock > 10:
+               return Response({"message": "Product with more than 10 stock can't be deleted."})
+          self.perform_destroy(product)
+          return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CategoryViewSet(ModelViewSet):
+     queryset = Category.objects.annotate(total_products=Count("products"))
+     serializer_class = CategorySerializer
+
+
+
 # product views
 @api_view(['GET', 'POST'])
 def view_products(request):
@@ -41,6 +63,13 @@ class ViewProducts(APIView):
               return Response(serializer.data)
           else:
               return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+          
+# view products using mixins or generic vieew
+class ProductList(ListCreateAPIView):
+     def get_queryset(self):
+          return Product.objects.select_related('category')
+     def get_serializer_class(self):
+          return ProductSerializer
      
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -74,6 +103,12 @@ class ViewSpecificProduct(APIView):
          product = get_object_or_404(Product, pk=id)
          product.delete()
          return Response(status=status.HTTP_204_NO_CONTENT)
+
+# using generic view to get product details
+class ProductDetails(RetrieveUpdateDestroyAPIView):
+     queryset = Product.objects.all()
+     serializer_class = ProductSerializer
+     lookup_field = "id"
 
 # category views
 @api_view(['GET'])
@@ -109,3 +144,9 @@ class ViewSpecificCategory(APIView):
           category = get_object_or_404(Category, pk=id)
           category.delete()
           return Response(status=status.HTTP_204_NO_CONTENT)
+     
+# category details using generic view
+class CategoryDetails(RetrieveUpdateDestroyAPIView):
+     queryset = Category.objects.annotate(total_products=Count("products"))
+     serializer_class = CategorySerializer
+     lookup_field = "id"
